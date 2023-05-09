@@ -9,6 +9,7 @@ import {
   Carousel,
   initTE,
 } from "tw-elements";
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const data = useContext(ProductsData);
@@ -198,9 +199,9 @@ export default function Home() {
                     <p class="mt-2">
                       <span class="sr-only"> Regular Price </span>
 
-                      <span class="tracking-wider text-lg text-rose-600	 line-through">£ {pro.price} GBP</span>
+                      <span class="tracking-wider text-lg text-rose-600	 line-through">$ {pro.price} GBP</span>
                       <br />
-                      <span class="tracking-wider text-lg text-teal-600"> {pro.price - (0.10 * pro.price) }</span>
+                      <span class="tracking-wider text-lg text-teal-600">$ {pro.price - (0.10 * pro.price)}</span>
                     </p>
                   </div>
                 </a>
@@ -210,12 +211,7 @@ export default function Home() {
 
         </div>
         <div class="flex flex-col items-center justify-center px-12 py-3">
-
-          <a
-            class="inline-block rounded border border-teal-600 bg-teal-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-indigo-500"
-            href="/products"
-          >
-            Latest offers</a>
+            <Link to="/products" className='bg-teal-600  transition-bg duration-300 hover:text-teal-600  hover:bg-teal-200inline-block rounded border border-teal-600  px-12 py-3 text-sm font-medium text-white hover:bg-transparent  focus:outline-none focus:ring active:text-indigo-500'>Latest offers</Link>
         </div>
       </section>
 
@@ -234,19 +230,19 @@ export default function Home() {
             <div class="w-1/2 p-1 md:p-2 ">
               <a href='#'>  <img
                 alt="gallery"
-                class="block h-full w-full rounded-lg object-cover border-4 object-center"
+                class="block h-full w-full rounded-lg object-cover border-2 object-center border-teal-500"
                 src={data[10].images[0]} /></a>
             </div>
             <div class="w-1/2 p-1 md:p-2 ">
               <a href='#'><img
                 alt="gallery"
-                class="block h-full w-full rounded-lg object-cover border-4 object-center"
+                class="block h-full w-full rounded-lg object-cover border-2 object-center border-teal-500"
                 src={data[1].images[0]} /></a>
             </div>
             <div class="w-full p-1 md:p-2 ">
               <a href='#'>  <img
                 alt="gallery"
-                class="block h-full w-full rounded-lg object-cover border-4 object-center"
+                class="block h-full w-full rounded-lg object-cover border-2 object-center border-teal-500"
                 src={data[12].images[0]} /></a>
             </div>
           </div>
@@ -254,31 +250,25 @@ export default function Home() {
             <div class="w-full p-1 md:p-2 ">
               <a href='#'><img
                 alt="gallery"
-                class="block h-full w-full rounded-lg object-cover border-4 object-center"
+                class="block h-full w-full rounded-lg object-cover border-2 object-center border-teal-500"
                 src={data[4].images[0]} /></a>
             </div>
             <div class="w-1/2 p-1 md:p-2 ">
               <a href='#'><img
                 alt="gallery"
-                class="block h-full w-full rounded-lg object-cover border-4 object-center"
+                class="block h-full w-full rounded-lg object-cover border-2 object-center border-teal-500"
                 src={data[8].images[0]} /></a>
             </div>
             <div class="w-1/2 p-1 md:p-2 ">
               <a href='#'>  <img
                 alt="gallery"
-                class="block h-full w-full rounded-lg object-cover border-4 object-center "
+                class="block h-full w-full rounded-lg object-cover border-2 object-center border-teal-500 "
                 src={data[6].images[0]} /></a>
             </div>
           </div>
         </div>
         <div class="flex flex-col items-center justify-center px-12 py-3">
-
-          <a
-            class="inline-block rounded border mt-10 border-teal-600 bg-teal-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-indigo-500"
-            href="/products"
-          >
-            Show all product
-          </a>
+        <Link to="/products" className='bg-teal-600  transition-bg duration-300 hover:text-teal-600  hover:bg-teal-200 inline-block rounded border border-teal-600  px-12 py-3 text-sm font-medium text-white hover:bg-transparent  focus:outline-none focus:ring active:text-teal-200'>Show all product</Link>
         </div>
       </div>
 

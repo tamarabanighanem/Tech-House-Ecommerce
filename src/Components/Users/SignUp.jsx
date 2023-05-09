@@ -3,6 +3,11 @@ import '../../CSS/Users.css'
 import Logo from '../../Images/TachHouse-logo.png'
 import { Link, useNavigate } from 'react-router-dom';
 import SignGoogle from './SignInWithGoogle';
+import Facebook from './SigInWithFacebook';
+
+if (localStorage.Users === undefined) {
+  localStorage.setItem('Users', JSON.stringify([]))
+}
 
 export default function SignUp() {
 
@@ -15,8 +20,8 @@ export default function SignUp() {
     password: '',
     cart: []
   })
-  
-  const [users, setUsers] = useState(localStorage.Users ? JSON.parse(localStorage.Users) : []);
+
+  const [users, setUsers] = useState(JSON.parse(localStorage.Users));
 
   const [checkInput, setCheckInput] = useState({
     name: false,
@@ -50,8 +55,8 @@ export default function SignUp() {
     submit: ''
   });
 
-  function checkEmail (email) {
-    
+  function checkEmail(email) {
+
     for (let index = 0; index < users.length; index++) {
       if (email === users[index].email) {
         return true;
@@ -62,86 +67,86 @@ export default function SignUp() {
 
   function handleName(event) {
     const name = event.target.value;
-    setCheckInput({...checkInput, name : false});
-    
+    setCheckInput({ ...checkInput, name: false });
+
     if (name === '') {
-      setInputTheme({...inputTheme, name: themeValue.normal});
-      setMassageWarning({...massageWarning, name : 'Required!'});
+      setInputTheme({ ...inputTheme, name: themeValue.normal });
+      setMassageWarning({ ...massageWarning, name: 'Required!' });
     }
     else {
-      setInputTheme({...inputTheme, name: themeValue.success})
-      setMassageWarning({...massageWarning, name : ''});
-      setUser({ ...user, name: name});
-      setCheckInput({...checkInput, name : true});
+      setInputTheme({ ...inputTheme, name: themeValue.success })
+      setMassageWarning({ ...massageWarning, name: '' });
+      setUser({ ...user, name: name });
+      setCheckInput({ ...checkInput, name: true });
     }
   }
 
   function handlePhone(event) {
-    const patternPhone= /^07\d{8}$/;
-    setCheckInput({...checkInput, phone : false});
+    const patternPhone = /^07\d{8}$/;
+    setCheckInput({ ...checkInput, phone: false });
     const phone = event.target.value;
 
     if (phone === '') {
-      setInputTheme({...inputTheme, phone: themeValue.normal});
-      setMassageWarning({...massageWarning, phone : 'Required!'});
+      setInputTheme({ ...inputTheme, phone: themeValue.normal });
+      setMassageWarning({ ...massageWarning, phone: 'Required!' });
     }
     else if (!patternPhone.test(phone)) {
-      setInputTheme({...inputTheme, phone: themeValue.error})
-      setMassageWarning({...massageWarning, phone : 'Invalid number'})
+      setInputTheme({ ...inputTheme, phone: themeValue.error })
+      setMassageWarning({ ...massageWarning, phone: 'Invalid number' })
     }
     else {
-      setMassageWarning({...massageWarning, phone : ''})
-      setInputTheme({...inputTheme, phone: themeValue.success})
-      setUser({ ...user, phone: phone});
-      setCheckInput({...checkInput, phone : true});
+      setMassageWarning({ ...massageWarning, phone: '' })
+      setInputTheme({ ...inputTheme, phone: themeValue.success })
+      setUser({ ...user, phone: phone });
+      setCheckInput({ ...checkInput, phone: true });
     }
   }
 
   function handleEmail(event) {
     const patternEmail = /^[A-z0-9\.]+@[A-z0-9]+\.[A-z]{3,5}$/;
-    setCheckInput({...checkInput, email : false});
+    setCheckInput({ ...checkInput, email: false });
     const email = event.target.value;
 
     if (email === '') {
-      setInputTheme({...inputTheme, email: themeValue.normal});
-      setMassageWarning({...massageWarning, email : 'Required!'});
+      setInputTheme({ ...inputTheme, email: themeValue.normal });
+      setMassageWarning({ ...massageWarning, email: 'Required!' });
     }
     else if (!patternEmail.test(email)) {
-      setInputTheme({...inputTheme, email: themeValue.error});
-      setMassageWarning({...massageWarning, email : 'Invalid email'});
+      setInputTheme({ ...inputTheme, email: themeValue.error });
+      setMassageWarning({ ...massageWarning, email: 'Invalid email' });
     }
     else if (checkEmail(email)) {
-      setMassageWarning({...massageWarning, email : 'Email is already exist'});
-      setInputTheme({...inputTheme, email: themeValue.error});
-      setUser({ ...user, email: email});
+      setMassageWarning({ ...massageWarning, email: 'Email is already exist' });
+      setInputTheme({ ...inputTheme, email: themeValue.error });
+      setUser({ ...user, email: email });
     }
-    else {      
-      setMassageWarning({...massageWarning, email : ''});
-      setInputTheme({...inputTheme, email: themeValue.success});
-      setUser({ ...user, email: email});
-      setCheckInput({...checkInput, email : true});
+    else {
+      setMassageWarning({ ...massageWarning, email: '' });
+      setInputTheme({ ...inputTheme, email: themeValue.success });
+      setUser({ ...user, email: email });
+      setCheckInput({ ...checkInput, email: true });
     }
   }
 
   function handlePassword(event) {
     // more than 8 characters, with at least 1 number, uppercase, and special characters.
     const patternPassword = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,.?]).{8,}$/;
-    setCheckInput({...checkInput, password : false});
+    setCheckInput({ ...checkInput, password: false });
     const password = event.target.value;
 
     if (password === '') {
-      setInputTheme({...inputTheme, password: themeValue.normal});
-      setMassageWarning({...massageWarning, password : 'Required!'});
+      setInputTheme({ ...inputTheme, password: themeValue.normal });
+      setMassageWarning({ ...massageWarning, password: 'Required!' });
     }
     else if (!patternPassword.test(password)) {
-      setInputTheme({...inputTheme, password: themeValue.error});
-      setMassageWarning({...massageWarning, password : 'Invalid password, Password must consist of 8 characters, with at least 1 number, uppercase, and special characters'})
+      setInputTheme({ ...inputTheme, password: themeValue.error });
+      setMassageWarning({ ...massageWarning, password: 'Invalid password, Password must consist of 8 characters, with at least 1 number, uppercase, and special characters' })
     }
     else {
-      setMassageWarning({...massageWarning, password : ''});
-      setInputTheme({...inputTheme, password: themeValue.success});
-      setUser({ ...user, password: password});
-      setCheckInput({...checkInput, password : true});
+      setMassageWarning({ ...massageWarning, password: '' });
+      setInputTheme({ ...inputTheme, password: themeValue.success });
+      setUser({ ...user, password: password });
+      setCheckInput({ ...checkInput, password: true });
     }
   }
 
@@ -149,24 +154,24 @@ export default function SignUp() {
 
     const password = event.target.value;
 
-    setCheckInput({...checkInput, confirmPassword : false});
+    setCheckInput({ ...checkInput, confirmPassword: false });
 
     if (password === '') {
-      setInputTheme({...inputTheme, confirmPassword: themeValue.normal});
-      setMassageWarning({...massageWarning, confirmPassword : 'Required!'});
+      setInputTheme({ ...inputTheme, confirmPassword: themeValue.normal });
+      setMassageWarning({ ...massageWarning, confirmPassword: 'Required!' });
     }
     else if (password !== user.password) {
-      setInputTheme({...inputTheme, confirmPassword: themeValue.error});
-      setMassageWarning({...massageWarning, confirmPassword : 'Password does not match'});
+      setInputTheme({ ...inputTheme, confirmPassword: themeValue.error });
+      setMassageWarning({ ...massageWarning, confirmPassword: 'Password does not match' });
     }
     else {
-      setMassageWarning({...massageWarning, confirmPassword : ''});
-      setInputTheme({...inputTheme, confirmPassword: themeValue.success});
-      setCheckInput({...checkInput, confirmPassword : true});
+      setMassageWarning({ ...massageWarning, confirmPassword: '' });
+      setInputTheme({ ...inputTheme, confirmPassword: themeValue.success });
+      setCheckInput({ ...checkInput, confirmPassword: true });
     }
   }
 
-  function handleSubmit (event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
     if (checkInput.name && checkInput.email && checkInput.phone && checkInput.password && checkInput.confirmPassword) {
@@ -177,7 +182,7 @@ export default function SignUp() {
       navigate('/');
     }
     else {
-      setMassageWarning({...massageWarning, submit : 'Please fill in all fields or verify that the input is correct.'});
+      setMassageWarning({ ...massageWarning, submit: 'Please fill in all fields or verify that the input is correct.' });
     }
   }
 
@@ -204,18 +209,10 @@ export default function SignUp() {
             </h1>
             <div class="w-full flex-1 mt-8">
               <div class="flex flex-col items-center">
-              <SignGoogle  massage={"Sign Up with Google"}/>
 
-                <button
-                  class="sign-with-account w-full  max-w-xs font-bold shadow-md rounded-lg p-3 bg-indigo-100 text-gray-800 flex items-center justify-center hover:shadow-teal-600  transition duration-300 focus:shadow-none focus:translate-y-0.5 focus:scale-110 hover:-translate-y-1 hover:scale-110 mt-5"
-                >
-                  <div class="bg-white p-1 rounded-full">
-                    <svg class="w-7" xmlns="http://www.w3.org/2000/svg"  data-name="Ebene 1" viewBox="0 0 1024 1024" id="facebook-logo-2019"><path fill="#1877f2" d="M1024,512C1024,229.23016,794.76978,0,512,0S0,229.23016,0,512c0,255.554,187.231,467.37012,432,505.77777V660H302V512H432V399.2C432,270.87982,508.43854,200,625.38922,200,681.40765,200,740,210,740,210V336H675.43713C611.83508,336,592,375.46667,592,415.95728V512H734L711.3,660H592v357.77777C836.769,979.37012,1024,767.554,1024,512Z"></path><path fill="#fff" d="M711.3,660,734,512H592V415.95728C592,375.46667,611.83508,336,675.43713,336H740V210s-58.59235-10-114.61078-10C508.43854,200,432,270.87982,432,399.2V512H302V660H432v357.77777a517.39619,517.39619,0,0,0,160,0V660Z"></path></svg>
-                  </div>
-                  <span class="ml-4">
-                    Sign in with Facebook
-                  </span>
-                </button>
+                <SignGoogle massage={"Sign in with Google"} />
+
+                <Facebook massage={"Sign in with Facebook"} />
               </div>
 
               <div class="my-12 border-b text-center">

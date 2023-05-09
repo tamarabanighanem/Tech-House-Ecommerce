@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Header() {
+   
    const [nav, setNav] = useState(false);
-   let user = sessionStorage.getItem('User') || false;
+   const [user, setUSer] = useState(sessionStorage.getItem('User') || false)
+
+   function handleLogOut () {
+      sessionStorage.removeItem('User');
+      setUSer(false);
+   }
 
    return (
 
@@ -23,7 +29,7 @@ export default function Header() {
             </Link>
             <div class="flex flex-1 items-center justify-end md:justify-between">
 
-               <button onClick={() => setNav(!nav)} class="block ml-4		rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-teal-600 md:hidden">
+               <button onClick={() => setNav(!nav)} class="block ml-4 rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-teal-600 md:hidden">
                   <span class="sr-only">Toggle menu</span>
                   <svg
                      xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +65,6 @@ export default function Header() {
                   </ul>
                </nav>
 
-               {/* <div class="flex flex-1 items-center justify-end md:justify-between"> */}
                <nav aria-label="Site Nav" class="hidden md:block">
                   <ul class="flex items-center gap-6 text-sm">
                      <li>
@@ -81,14 +86,14 @@ export default function Header() {
             </div>
             <div class="flex items-center gap-4">
 
-               { user ?
-               <div class="sm:flex sm:gap-4">
-                  <Link to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Login</Link>
-               </div>
-               :
-               <div class="sm:flex sm:gap-4">
-                  <Link to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Log Out</Link>
-               </div>
+               {user ?
+                  <div class="sm:flex sm:gap-4">
+                     <Link onClick={handleLogOut} to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Log Out</Link>
+                  </div>
+                  :
+                  <div class="sm:flex sm:gap-4">
+                     <Link to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Login</Link>
+                  </div>
                }
             </div>
          </div>

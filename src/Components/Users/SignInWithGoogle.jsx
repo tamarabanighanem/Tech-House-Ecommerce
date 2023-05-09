@@ -41,7 +41,7 @@ export default function SignInWithGoogle({massage}) {
                 cart: []
             };
             setUsers([...users, user]);
-            sessionStorage.setItem('User', JSON.stringify(isUser));
+            sessionStorage.setItem('User', JSON.stringify(user));
             localStorage.setItem('Users', JSON.stringify([...users, user]));
         }
         navigate('/');
@@ -61,7 +61,7 @@ export default function SignInWithGoogle({massage}) {
 
                         }).catch((error) => {
                             setMassageWarning("Something went wrong, please try again later");
-                            console.log("Sign Error :" +  error);
+                            console.log("Sign With google, Error :" +  error);
                         });
                     });
                 });

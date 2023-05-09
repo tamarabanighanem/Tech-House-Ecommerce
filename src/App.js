@@ -21,8 +21,6 @@ function App() {
   const url = 'https://mocki.io/v1/2407d9ca-fc96-4310-8f8e-e519fe5ff909';
   const { data } = useFetch(url);
 
-    console.log(localStorage.Users ? JSON.parse(localStorage.Users) : [])
-
   return (
     <BrowserRouter>
       <ProductsData.Provider value={data || []}>

@@ -110,14 +110,11 @@ export default function Product() {
 
     }
     setproductCount(productCount2)
-    console.log(productCount)
     setToggleState(index);
   };
   const product = eDatafilter.map((item) => {
     return (
       <>
-
-
         <div className="bg-white  shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700 mt-10 scale-90">
           <a href="#">
             <img
@@ -187,7 +184,7 @@ export default function Product() {
             <div className="flex cursor-pointer items-center justify-around">
               <a name={item.id} onClick={handleCartClick}
 
-                className="text-white bg-teal-600 hover:bg-teal-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-teal-600 transition-bg duration-300 hover:text-teal-600  hover:bg-teal-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center "
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
@@ -195,7 +192,7 @@ export default function Product() {
               </a>
 
               <a
-                className="text-white bg-teal-600 hover:bg-teal-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-teal-600 transition-bg duration-300 hover:text-teal-600 hover:bg-teal-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 
               >
                 <Link to={`/productsdetails/${item.id}`}>Buy Now</Link>
@@ -240,7 +237,7 @@ export default function Product() {
               type="text"
               placeholder="Search" onChange={handleChange}
             />
-            <div className="bg-gray-600 p-2 hover:bg-blue-400 cursor-pointer mx-2 rounded-full">
+            <div className="bg-gray-600 p-2 hover:bg-teal-500 cursor-pointer mx-2 rounded-full">
               <svg
                 className="w-6 h-6 text-white"
                 xmlns="http://www.w3.org/2000/svg"
@@ -259,27 +256,27 @@ export default function Product() {
       </div>
 
 
-      <div className="bloc-tabs">
+      <div className="bloc-tabs font-bold" >
         <button
-          className={toggleState === 1 ? "tabs active-tabs" : "tabs bg-teal-600   hover:bg-teal-600"}
+          className={toggleState === 1 ? "tabs transition-bg duration-300 active-tabs" : "tabs bg-teal-600 transition-bg duration-300 hover:bg-teal-600"}
           onClick={() => toggleTab(1)}
         >
           All Product
         </button>
         <button
-          className={toggleState === 4 ? "tabs active-tabs" : "tabs bg-teal-600   hover:bg-teal-600"}
+          className={toggleState === 4 ? "tabs transition-bg duration-300 active-tabs" : "tabs bg-teal-600 transition-bg duration-300 hover:bg-teal-600"}
           onClick={() => toggleTab(4)}
         >
           SMART PHONE
         </button>
         <button
-          className={toggleState === 2 ? "tabs active-tabs" : "tabs bg-teal-600   hover:bg-teal-600"}
+          className={toggleState === 2 ? "tabs transition-bg duration-300 active-tabs" : "tabs bg-teal-600 transition-bg duration-300 hover:bg-teal-600"}
           onClick={() => toggleTab(2)}
         >
           SMART TV
         </button>
         <button
-          className={toggleState === 3 ? "tabs active-tabs" : "tabs bg-teal-600   hover:bg-teal-600"}
+          className={toggleState === 3 ? "tabs transition-bg duration-300 active-tabs" : "tabs bg-teal-600 transition-bg duration-300 hover:bg-teal-600"}
           onClick={() => toggleTab(3)}
         >
           SMART WATCH
