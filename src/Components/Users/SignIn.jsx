@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../CSS/Users.css'
-import Logo from '../../Images/TachHouse-logo.png'
-import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../../Images/Techhouse-logo.png'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SignGoogle from './SignInWithGoogle'
 import Facebook from './SigInWithFacebook';
 
@@ -9,13 +9,24 @@ if (localStorage.Users === undefined) {
   localStorage.setItem('Users', JSON.stringify([]))
 }
 
-export default function LogIn() {
+export default function SignIn({updateIsLog}) {
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const navigate = useNavigate();
 
   const [users, setUsers] = useState(JSON.parse(localStorage.Users));
   const [user, setUser] = useState({});
-  
+  const [path, setPath] = useState('/');
+
+  const location = useLocation();
+
+  useEffect( () => {
+    if (location.search === "?CheckOut")
+      setPath('/payment');
+  }, []);
 
   const themeValue = {
     success: "green",
@@ -88,8 +99,9 @@ export default function LogIn() {
     let isUser = checkSignIn(user.email, user.password);
     if (isUser) {
       sessionStorage.setItem('User', JSON.stringify(isUser));
+      updateIsLog(true);
       event.target.reset();
-      navigate('/');
+      navigate(path);
     }
     else {
       setMassageWarning({ ...massageWarning, submit: 'Password or email is incorrect.' });
@@ -122,9 +134,9 @@ export default function LogIn() {
             <div class="w-full flex-1 mt-8">
               <div class="flex flex-col items-center">
 
-                  <SignGoogle  massage={"Sign in with Google"}/> 
+                  <SignGoogle  massage={"Sign in with Google"} path={path} updateIsLog={updateIsLog}/> 
 
-                  <Facebook massage={"Sign in with Facebook"}/>
+                  <Facebook massage={"Sign in with Facebook"} path={path} updateIsLog={updateIsLog}/>
               </div>
 
               <div class="my-12 border-b text-center">
@@ -165,7 +177,7 @@ export default function LogIn() {
                     </span>
                   </button>
                   <p className={`mt-2 text-sm text-${themeValue.warning}-600 dark:text-${themeValue.warning}-500`}><span class="font-medium">{massageWarning.submit}</span></p>
-                  <p className={`mt-2 text-sm text-${themeValue.normal}-600 dark:text-${themeValue.normal}-500`}>Don't have an account! <Link to="/signUp" className={`font-bold text-${themeValue.normal}-300 transition hover:text-${themeValue.normal}-500/75`}>Sign Up</Link></p>
+                  <p className={`mt-2 text-sm text-${themeValue.normal}-600 dark:text-${themeValue.normal}-500`}>Don't have an account! <Link to={path === "/payment" ? { pathname: "/signUp", search: "CheckOut" } : "/signUp"}className={`font-bold text-${themeValue.normal}-300 transition hover:text-${themeValue.normal}-500/75`}>Sign Up</Link></p>
                 </div>
               </form>
             </div>

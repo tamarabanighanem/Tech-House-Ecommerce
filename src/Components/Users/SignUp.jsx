@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../CSS/Users.css'
-import Logo from '../../Images/TachHouse-logo.png'
-import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../../Images/Techhouse-logo.png'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SignGoogle from './SignInWithGoogle';
 import Facebook from './SigInWithFacebook';
 
@@ -9,9 +9,22 @@ if (localStorage.Users === undefined) {
   localStorage.setItem('Users', JSON.stringify([]))
 }
 
-export default function SignUp() {
+export default function SignUp({updateIsLog}) {
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const navigate = useNavigate();
+
+  const [path, setPath] = useState('/');
+
+  const location = useLocation();
+
+  useEffect( () => {
+    if (location.search === "?CheckOut")
+      setPath('/payment');
+  }, []);
 
   const [user, setUser] = useState({
     name: '',
@@ -179,7 +192,8 @@ export default function SignUp() {
       localStorage.setItem('Users', JSON.stringify([...users, user]));
       sessionStorage.setItem('User', JSON.stringify(user));
       event.target.reset();
-      navigate('/');
+      updateIsLog(true);
+      navigate(path);
     }
     else {
       setMassageWarning({ ...massageWarning, submit: 'Please fill in all fields or verify that the input is correct.' });

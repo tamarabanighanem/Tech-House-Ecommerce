@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginSocialFacebook } from 'reactjs-social-login'
 
-export default function SigInWithFacebook({ massage }) {
+export default function SigInWithFacebook({ massage, path, updateIsLog }) {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState(JSON.parse(localStorage.Users) || []);
@@ -45,7 +45,8 @@ export default function SigInWithFacebook({ massage }) {
             sessionStorage.setItem('User', JSON.stringify(user));
             localStorage.setItem('Users', JSON.stringify([...users, user]));
         }
-        navigate('/');
+        updateIsLog(true);
+        navigate(path);
     }
 
     function handleError (error) {
@@ -56,7 +57,7 @@ export default function SigInWithFacebook({ massage }) {
     return (
         <>
             <LoginSocialFacebook
-                appId="814439923353822"
+                appId= {process.env.REACT_APP_Facebook_Client_id}
                 onResolve= {handleSignIn}
                 onReject= {handleError}>
                 <button

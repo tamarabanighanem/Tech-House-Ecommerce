@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function ContactUs() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const form = useRef();
 
   const [massage, setMassage] = useState({
@@ -12,7 +17,16 @@ export default function ContactUs() {
 
   const sendEmail = (event) => {
     event.preventDefault();
-    
+
+    const email = event.target.user_name.value;
+    const user_email = event.target.user_email.value;
+    const message = event.target.message.value;
+
+    if (!email || !user_email || !message) {
+      setMassage({ msg: 'Please fill in all fields!.', theme: 'red' });
+      return;
+    }
+
     emailjs
       .sendForm(
         "service_o4z25iw",
@@ -22,15 +36,15 @@ export default function ContactUs() {
       )
       .then(
         (result) => {
-          setMassage({msg : 'Your message has been sent successfully, our team will contact you as soon as possible.', theme: 'green'});
+          setMassage({ msg: 'Your message has been sent successfully, our team will contact you as soon as possible.', theme: 'green' });
         },
         (error) => {
-          setMassage({msg : 'Something went wrong, please try again later!.', theme: 'red'});
+          setMassage({ msg: 'Something went wrong, please try again later!.', theme: 'red' });
           console.log("massage error :" + error)
         }
-    );
-   document.getElementById('form').reset();
-
+      );
+      
+    document.getElementById('form').reset();
   };
 
   return (
@@ -45,7 +59,7 @@ export default function ContactUs() {
           />
           <div className="px-6 py-12 md:px-12">
             <div className="container mx-auto xl:px-32">
-              <div className="grid lg:grid-cols-2 flex items-center">
+              <div className="grid lg:grid-cols-2 items-center">
                 <div className="md:mt-12 lg:mt-0 mb-12 lg:mb-0">
                   <div
                     className="block rounded-lg shadow-lg px-6 py-12 md:px-12 lg:-mr-14"
@@ -92,20 +106,20 @@ export default function ContactUs() {
                         Send
                       </button>
                     </form>
-                <p className={`font-bold mt-3 text-${massage.theme}-500`}>{massage.msg}</p>
+                    <p className={`font-bold mt-3 text-${massage.theme}-500`}>{massage.msg}</p>
                   </div>
                 </div>
                 <a href="https://www.google.com/maps/place/Orange+Digital+Village+Zarqa/@32.0587246,36.0840747,18z/data=!4m6!3m5!1s0x151b65cd4d8f17e1:0x30e86b8a97e4ac7d!8m2!3d32.0587246!4d36.0851573!16s%2Fg%2F11s8wcmcb6">
-                <div className="md:mb-12 lg:mb-0">
-                  <div className="map-container relative shadow-lg rounded-lg">
-                    <iframe
-                      src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                      className="left-0 top-0 h-full w-full absolute rounded-lg"
-                      frameBorder={0}
-                      allowFullScreen=""
-                    />
+                  <div className="md:mb-12 lg:mb-0">
+                    <div className="map-container relative shadow-lg rounded-lg">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1690.69502762621!2d36.08475598108982!3d32.05869732178497!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151b65cd4d8f17e1%3A0x30e86b8a97e4ac7d!2sOrange%20Digital%20Village%20Zarqa!5e0!3m2!1sar!2sjo!4v1683882796604!5m2!1sar!2sjo" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        className="left-0 top-0 h-full w-full absolute rounded-lg"
+                        allowFullScreen=""
+                      />
+                      <iframe ></iframe>
+                    </div>
                   </div>
-                </div>
                 </a>
               </div>
             </div>

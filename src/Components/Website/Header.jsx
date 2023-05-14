@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import TechHouseLogo from './../../Images/Techhouse-logo.png'
+export default function Header({ isLog, updateIsLog }) {
 
-export default function Header() {
-   
    const [nav, setNav] = useState(false);
-   const [user, setUSer] = useState(sessionStorage.getItem('User') || false)
 
-   function handleLogOut () {
+   function handleLogOut() {
       sessionStorage.removeItem('User');
-      setUSer(false);
+      updateIsLog(false)
    }
 
    return (
@@ -22,12 +21,12 @@ export default function Header() {
                   <span class="sr-only">Home</span>
 
                   <div class="flex-shrink-0 justify-center">
-                     <img class=" w-40	" src="https://cdn.discordapp.com/attachments/1103605500412690432/1104387146317582436/tachhouse-high-logopng.png" alt="Workflow logo" />
+                     <img class=" w-40	" src={TechHouseLogo} alt="Workflow logo" />
                   </div>
 
                </a>
             </Link>
-            <div class="flex flex-1 items-center justify-end md:justify-between">
+            <div class="flex flex-1 items-center justify-end">
 
                <button onClick={() => setNav(!nav)} class="block ml-4 rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-teal-600 md:hidden">
                   <span class="sr-only">Toggle menu</span>
@@ -45,28 +44,33 @@ export default function Header() {
                   </svg>
                </button>
 
-               <nav className={`h-[50vh]  md:hidden fixed top-[0px] rounded-md  w-60 border-teal-600	border-2	 bg-gray-100 z-40 duration-700 ${nav ? "right-[53px] top-[53px]" : "right-[-100vw]"
+               <nav className={`md:hidden fixed top-[0px] rounded-md  w-60 border-teal-600	border-2	 bg-gray-100 z-40 duration-700 ${nav ? "right-[53px] top-[53px]" : "right-[-100vw]"
                   } `}>
                   <ul class="flex flex-col items-center">
-                     <li className='mt-10'>
+                     <li className='mt-5'>
+                        <Link to="/" className='text-gray-500 font-bold transition hover:text-teal-600'>Home</Link>
+                     </li>
+                     <li className='mt-12'>
                         <Link to="/aboutUs" className='text-gray-500 font-bold transition hover:text-teal-600'>About Us</Link>
                      </li>
-                     <li className='mt-10'>
+                     <li className='mt-12'>
                         <Link to="/contactUs" className='text-gray-500 font-bold transition  hover:text-teal-600'>Contact Us</Link>
                      </li>
-
-                     <li className='mt-10'>
+                     <li className='mt-12'>
                         <Link to="/cart" className='text-gray-500 font-bold transition  hover:text-teal-600'>Cart</Link>
                      </li>
 
-                     <li className='mt-10'>
+                     <li className='mt-12 mb-5'>
                         <Link to="/products" className='text-gray-500 font-bold transition  hover:text-teal-600'>Products</Link>
                      </li>
                   </ul>
                </nav>
 
                <nav aria-label="Site Nav" class="hidden md:block">
-                  <ul class="flex items-center gap-6 text-sm">
+                  <ul class="flex items-center gap-6 text-sm ">
+                     <li>
+                        <Link to="/" className='text-gray-500 font-bold transition hover:text-teal-600'>Home</Link>
+                     </li>
                      <li>
                         <Link to="/aboutUs" className='text-gray-500 font-bold transition hover:text-teal-600'>About Us</Link>
                      </li>
@@ -86,15 +90,17 @@ export default function Header() {
             </div>
             <div class="flex items-center gap-4">
 
-               {user ?
-                  <div class="sm:flex sm:gap-4">
-                     <Link onClick={handleLogOut} to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Log Out</Link>
-                  </div>
-                  :
-                  <div class="sm:flex sm:gap-4">
-                     <Link to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Login</Link>
-                  </div>
-               }
+
+               <div class="sm:flex sm:gap-4">
+                  {
+                     isLog ?
+                        <Link onClick={handleLogOut} to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Log Out</Link>
+                        :
+                        <Link to="/signIn" className='block rounded-md bg-teal-600 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700'>Log In</Link>
+                  }
+               </div>
+
+
             </div>
          </div>
       </header>

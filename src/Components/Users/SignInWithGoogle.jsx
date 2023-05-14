@@ -2,7 +2,7 @@ import { gapi } from 'gapi-script'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignInWithGoogle({massage}) {
+export default function SignInWithGoogle({massage, path, updateIsLog}) {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState(JSON.parse(localStorage.Users) || []);
@@ -44,14 +44,15 @@ export default function SignInWithGoogle({massage}) {
             sessionStorage.setItem('User', JSON.stringify(user));
             localStorage.setItem('Users', JSON.stringify([...users, user]));
         }
-        navigate('/');
+        updateIsLog(true);
+        navigate(path);
     }
 
     const startApp = () => {
         window.gapi.load("auth2", function () {
             window.gapi.auth2
                 .init({
-                    client_id: "450119629221-1opkncnrqv5jcb8iqsfuctngbjbmkvfl.apps.googleusercontent.com",
+                    client_id: process.env.REACT_APP_Google_Client_id,
                 })
                 .then((auth2) => {
                     const customBtn = document.getElementById("customBtn");

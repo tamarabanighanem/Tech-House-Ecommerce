@@ -18,6 +18,9 @@ export default function Footer() {
         <nav aria-label="Footer Nav" class="mt-12">
           <ul class="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
             <li>
+              <Link to="/" className='text-gray-500 font-bold transition hover:text-teal-600'>Home</Link>
+            </li>
+            <li>
               <Link to="/aboutUs" className='text-gray-500 font-bold transition hover:text-teal-600'>About Us</Link>
             </li>
 
